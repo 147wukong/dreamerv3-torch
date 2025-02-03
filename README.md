@@ -24,7 +24,7 @@ To set up Atari or Minecraft environments, please check the scripts located in [
 
 Please refer to the Dockerfile for the instructions, as they are included within.
 ### Recommended Approach: Docker
-**I encountered some errors using the original Dockerfile. The Dockerfile in this repository has been modified. **
+**I encountered some errors using the original Dockerfile. The Dockerfile in this repository has been modified.**
 
 ## Benchmarks
 So far, the following benchmarks can be used for testing.
