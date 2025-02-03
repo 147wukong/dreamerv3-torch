@@ -15,26 +15,36 @@
 # tensorboard --logdir ~/logdir
 #
 # 4. To set up Atari or Minecraft environments, please check the scripts located in "env/setup_scripts".
-
 # System
 FROM pytorch/pytorch:2.4.0-cuda12.4-cudnn9-runtime
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=America/San_Francisco
-ENV PYTHONUNBUFFERED 1
-ENV PIP_DISABLE_PIP_VERSION_CHECK 1
-ENV PIP_NO_CACHE_DIR 1
+ENV PYTHONUNBUFFERED=1
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1
+ENV PIP_NO_CACHE_DIR=1
+
+
+RUN sed -i 's|http://archive.ubuntu.com|https://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list \
+    && sed -i 's|http://security.ubuntu.com|https://mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN apt-get update && apt-get install -y \
     vim libgl1-mesa-glx libosmesa6 \
     wget unrar cmake g++ libgl1-mesa-dev \
     libx11-6 openjdk-8-jdk x11-xserver-utils xvfb \
     && apt-get clean
-RUN pip3 install --upgrade pip
 
+RUN pip3 install --upgrade pip
+ENV PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
+ENV PIP_TRUSTED_HOST=pypi.tuna.tsinghua.edu.cn
 # Envs
-ENV NUMBA_CACHE_DIR=/tmp
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu/
+ENV XLA_PYTHON_CLIENT_PREALLOCATE=false
+ENV XLA_PYTHON_CLIENT_ALLOCATOR=platform
 
 WORKDIR /workspace
 COPY requirements.txt .
 
-# Install requiremqnts
-RUN pip3 install -r requirements.txt
+# Install requirements
+RUN pip3 install --timeout=600 --no-cache-dir -r requirements.txt
