@@ -19,9 +19,12 @@ tensorboard --logdir ./logdir
 ```
 To set up Atari or Minecraft environments, please check the scripts located in [env/setup_scripts](https://github.com/NM512/dreamerv3-torch/tree/main/envs/setup_scripts).
 
+
 ### Method 2: Docker
 
 Please refer to the Dockerfile for the instructions, as they are included within.
+### Recommended Approach: Docker
+__I encountered some errors using the original Dockerfile. The Dockerfile in this repository has been modified. __
 
 ## Benchmarks
 So far, the following benchmarks can be used for testing.
