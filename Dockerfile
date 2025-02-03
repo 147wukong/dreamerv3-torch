@@ -1,5 +1,5 @@
 # 1. Test setup:
-# docker run -it --rm --gpus all pytorch/pytorch:2.4.1-cuda12.4-cudnn9-runtime nvidia-smi
+# docker run -it --rm --gpus all pytorch/pytorch:2.4.0-cuda12.4-cudnn9-runtime nvidia-smi
 #
 # If the above does not work, try adding the --privileged flag
 # and changing the command to `sh -c 'ldconfig -v && nvidia-smi'`.
@@ -17,7 +17,7 @@
 # 4. To set up Atari or Minecraft environments, please check the scripts located in "env/setup_scripts".
 
 # System
-FROM pytorch/pytorch:2.4.1-cuda12.4-cudnn9-runtime
+FROM pytorch/pytorch:2.4.0-cuda12.4-cudnn9-runtime
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=America/San_Francisco
 ENV PYTHONUNBUFFERED 1
